@@ -239,7 +239,7 @@ function cj() {
                                 {
                                     className: "item " + data.name,
                                     text: data.prompt + "&nbsp;",
-                                    value: "JSON Object" + "&nbsp;",
+                                    value: "JSON Object - Click to copy&nbsp;",
                                     onclick: () => {
                                         navigator.clipboard.writeText(jsonStr)
                                         alert("Object copied to clipboard.")
