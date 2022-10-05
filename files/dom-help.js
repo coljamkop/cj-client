@@ -27,7 +27,7 @@ function domHelp() {
         return opt;
     }
 
-    function input(args) {
+    function input(args, related) {
         var p, lbl, inp;
 
         p = node("p");
@@ -44,9 +44,30 @@ function domHelp() {
         if (args.pattern) {
             inp.pattern = args.pattern;
         }
+        if (args?.type === "select" || args.suggest) {
+            inp = node("select");
+            inp.value = args.value.toString() || "";
+            inp.className = "ui drop-down ";
+            if (Array.isArray(args.suggest)) {
+                for (var ch of args.suggest) {
+                    opt = option(ch);
+                    push(opt, inp);
+                }
+            }
+            if (related) {
+                lst = related[args.suggest.related];
+                if (Array.isArray(lst)) {
+                    val = args.suggest.value
+                    txt = args.suggest.text
+                    for (var ch of lst) {
+                        opt = option({text: ch[txt], value: ch[val]})
+                        push(opt, inp)
+                    }
+                }
+            }
+        }
         push(lbl, p);
         push(inp, p);
-
         return p;
     }
 

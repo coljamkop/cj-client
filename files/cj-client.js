@@ -285,7 +285,7 @@ function cj() {
                 header.className = "ui dividing header";
                 d.push(header, fs);
                 for (var data of query.data) {
-                    p = d.input({prompt: data.prompt, name: data.name, value: data.value});
+                    p = d.input(data);
                     d.push(p, fs);
                 }
                 p = d.node("p");
