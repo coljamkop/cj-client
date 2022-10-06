@@ -579,6 +579,7 @@ function cj() {
     }
 
     function rsp(ajax) {
+        document.getElementById('title').innerHTML += ' - Loading'
         if (ajax.readyState === 4) {
             g.cj = JSON.parse(ajax.responseText);
             parseCj();
