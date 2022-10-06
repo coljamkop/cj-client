@@ -27,45 +27,40 @@ function domHelp() {
         return opt;
     }
 
-    function input(args, related) {
+    function input(args) {
         var p, lbl, inp;
 
         p = node("p");
+        p.hidden = args.display === "false" || false;
         p.className = "inline field";
+
         lbl = node("label");
-        inp = node("input");
         lbl.className = "data";
         lbl.innerHTML = args.prompt || "";
+
+        switch (args.type) {
+            case "select":
+                inp = node("select")
+                inp.className = "ui drop-down " + args.className;
+                if (Array.isArray(args.suggest)) {
+                    for (var ch of args.suggest) {
+                        opt = option(ch);
+                        push(opt, inp);
+                    }
+                }
+                break;
+            default:
+                inp = node("input");
+                inp.className = "value " + args.className;
+                if (args.pattern) {
+                    inp.pattern = args.pattern;
+                }
+                break;
+        }
         inp.name = args.name || "";
-        inp.className = "value " + args.className;
         inp.value = args.value.toString() || "";
         inp.required = (args.required || false);
         inp.readOnly = (args.readOnly || false);
-        if (args.pattern) {
-            inp.pattern = args.pattern;
-        }
-        if (args?.type === "select" || args.suggest) {
-            inp = node("select");
-            inp.value = args.value.toString() || "";
-            inp.className = "ui drop-down ";
-            if (Array.isArray(args.suggest)) {
-                for (var ch of args.suggest) {
-                    opt = option(ch);
-                    push(opt, inp);
-                }
-            }
-            if (related) {
-                lst = related[args.suggest.related];
-                if (Array.isArray(lst)) {
-                    val = args.suggest.value
-                    txt = args.suggest.text
-                    for (var ch of lst) {
-                        opt = option({text: ch[txt], value: ch[val]})
-                        push(opt, inp)
-                    }
-                }
-            }
-        }
         push(lbl, p);
         push(inp, p);
         return p;

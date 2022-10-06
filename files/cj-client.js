@@ -514,7 +514,7 @@ function cj() {
         q = 0;
         form = e.target;
         query = form.action + "/?";
-        nodes = d.tags("input", form);
+        nodes = form.elements;
         for (i = 0, x = nodes.length; i < x; i++) {
             if (nodes[i].name && nodes[i].name !== '') {
                 if (q++ !== 0) {
@@ -532,7 +532,7 @@ function cj() {
 
         data = [];
         form = e.target;
-        nodes = d.tags("input", form);
+        nodes = form.elements;
         for (i = 0, x = nodes.length; i < x; i++) {
             if (nodes[i].name && nodes[i].name !== '') {
                 data.push({name: nodes[i].name, value: nodes[i].value + ""});
@@ -547,7 +547,7 @@ function cj() {
 
         data = [];
         form = e.target;
-        nodes = d.tags("input", form);
+        nodes = form.elements;
         for (i = 0, x = nodes.length; i < x; i++) {
             if (nodes[i].name && nodes[i].name !== '') {
                 data.push({name: nodes[i].name, value: nodes[i].value + ""});
