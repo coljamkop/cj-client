@@ -49,6 +49,11 @@ function domHelp() {
                     }
                 }
                 break;
+            case "date":
+                inp = node("input")
+                inp.type = "date"
+                inp.className = "value " + args.className;
+                break;
             default:
                 inp = node("input");
                 inp.className = "value " + args.className;
@@ -111,6 +116,9 @@ function domHelp() {
         a.title = args.text || "link";
         if (args.type) {
             a.type = args.type;
+        }
+        if (args.location === "external") {
+            a.target = "_blank"
         }
         push(text(args.text || "link"), a);
 

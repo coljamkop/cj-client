@@ -93,9 +93,14 @@ function cj() {
             coll = g.cj.collection.links;
             menu = d.node("div");
             menu.className = "ui blue fixed top menu";
-            menu.onclick = httpGet;
+            let defaultonclick = menu.onclick
 
             for (var link of coll) {
+                if (link.location === "external") {
+                    menu.onclick = defaultonclick
+                } else {
+                    menu.onclick = httpGet
+                }
 
                 // stuff render=none Cj link elements in HTML.HEAD
                 if (isHiddenLink(link) === true) {
@@ -114,7 +119,10 @@ function cj() {
                     //d.push(item, menu);
                 } else {
                     a = d.anchor({
-                        rel: link.rel, href: link.href, text: link.prompt,
+                        rel: link.rel,
+                        href: link.href,
+                        text: link.prompt,
+                        location: link.location,
                         className: "item"
                     });
                     d.push(a, menu);
