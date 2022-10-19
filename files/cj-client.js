@@ -125,6 +125,7 @@ function cj() {
                         location: link.location,
                         className: "item"
                     });
+                    a.onclick = link.location === "external" ? defaultonclick : httpGet
                     d.push(a, menu);
                 }
             }
@@ -196,8 +197,8 @@ function cj() {
                 if (item.links) {
                     secondary_buttons = d.node("div");
                     secondary_buttons.className = "ui mini buttons right floated";
-
                     for (var link of item.links) {
+
                         // render as images, if asked
                         // TODO: test this with the new semantic-ui styling
                         if (isImage(link) === true) {
@@ -217,10 +218,11 @@ function cj() {
                                     className: "ui basic blue button",
                                     href: link.href,
                                     rel: link.rel,
-                                    text: link.prompt
+                                    text: link.prompt,
+                                    location: link.location
                                 }
                             );
-                            a.onclick = httpGet;
+                            a.onclick = link.location === "external" ? a.onclick : httpGet;
                             d.push(a, secondary_buttons);
                         }
                     }
@@ -524,7 +526,7 @@ function cj() {
         query = form.action + "/?";
         nodes = form.elements;
         for (i = 0, x = nodes.length; i < x; i++) {
-            if (nodes[i].name && nodes[i].name !== '') {
+            if (nodes[i].name && nodes[i].name !== '' && nodes[i].value && nodes[i].value !== '') {
                 if (q++ !== 0) {
                     query += "&";
                 }
